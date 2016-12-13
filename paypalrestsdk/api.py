@@ -92,12 +92,12 @@ class Api(object):
 
         else:
             self.validate_token_hash()
-            if self.token_hash is not None:
+            if refresh_token is None && self.token_hash is not None;
                 return self.token_hash
-            else:
+            elif refresh_token is None:
                 self.token_request_at = datetime.datetime.now()
 
-        self.token_hash = self.http_call(
+        token = self.http_call(
             util.join_url(self.token_endpoint, path), "POST",
             data=payload,
             headers=util.merge_dict({
@@ -105,8 +105,11 @@ class Api(object):
                 "Content-Type": "application/x-www-form-urlencoded",
                 "Accept": "application/json", "User-Agent": self.user_agent
             }, headers or {}))
-
-        return self.token_hash
+        if refresh_token is None:
+            self.token_hash = token;
+            return self.token_hash
+        else :
+            return token;
 
     def validate_token_hash(self):
         """Checks if token duration has expired and if so resets token
