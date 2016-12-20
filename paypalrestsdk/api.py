@@ -92,7 +92,7 @@ class Api(object):
 
         else:
             self.validate_token_hash()
-            if refresh_token is None && self.token_hash is not None;
+            if refresh_token is None && self.token_hash is not None:
                 return self.token_hash
             elif refresh_token is None:
                 self.token_request_at = datetime.datetime.now()
@@ -105,11 +105,10 @@ class Api(object):
                 "Content-Type": "application/x-www-form-urlencoded",
                 "Accept": "application/json", "User-Agent": self.user_agent
             }, headers or {}))
+        
         if refresh_token is None:
             self.token_hash = token;
-            return self.token_hash
-        else :
-            return token;
+        return token;
 
     def validate_token_hash(self):
         """Checks if token duration has expired and if so resets token
